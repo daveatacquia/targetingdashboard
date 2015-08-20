@@ -1,30 +1,44 @@
 library(shinydashboard)
+require(rCharts)
 
 dashboardPage(
-    dashboardHeader(title = "Lift Targeting"),
+    dashboardHeader(title = "Lift Dashboard"),
     dashboardSidebar(
         sidebarMenu(
-            menuItem("Dashboard", tabName = "dashboard", icon = icon("dashboard")),
-            menuItem("Widgets", tabName = "widgets", icon = icon("th"))
+            menuItem("Targeting", tabName = "targeting"),
+            menuItem("Testing", tabName = "testing"),
+            selectInput("perSelect", "Personalization:", choices = c('Banner A1'='1','Banner B2'='2'))
         )
     ),
     dashboardBody(
         tabItems(
-            # First tab content
-            tabItem(tabName = "dashboard",
+            # Targeting tab content
+            tabItem(tabName = "targeting",
                     fluidRow(
-                        box(plotOutput("plot1", height = 250)),
-                        
+                        valueBoxOutput("shown"),
+                        valueBoxOutput("conversions"),
+                        valueBoxOutput("conversionrate")
+                    ),
+                    fluidRow(
                         box(
-                            title = "Controls",
-                            sliderInput("slider", "Number of observations:", 1, 100, 50)
+                            width = 12, status = "info", solidHeader = TRUE,
+                            title = "Segment Visualization",
+                            showOutput("segmentPlot", "nvd3")
+                        )
+                    ),
+                    fluidRow(
+                        box(
+                            width = 12, status = "info", solidHeader = TRUE,
+                            title = "Segment Data",
+                            uiOutput("segmentTable")
                         )
                     )
             ),
             
-            # Second tab content
-            tabItem(tabName = "widgets",
-                    h2("Widgets tab content")
+            # Testing tab content
+            tabItem(tabName = "testing",
+                    fluidRow(
+                    )
             )
         )
     )
