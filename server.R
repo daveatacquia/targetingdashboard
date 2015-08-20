@@ -8,14 +8,48 @@
 library(shiny)
 library(shinydashboard)
 
-shinyServer(function(input, output) {
+library(jsonlite)
+library(rCharts)
 
-    set.seed(122)
-    histdata <- rnorm(500)
+shinyServer(function(input, output) {
     
-    output$plot1 <- renderPlot({
-        data <- histdata[seq_len(input$slider)]
-        hist(data)
+    output$segmentChart <- renderChart({
+        data <- fromJSON("./data/example.json")
+        seg <- data$segments
+        segment.names <- names(seg)
+        df <- data.frame(segment=NULL,variation=NULL,cr=NULL)
+        for(i in seq_along(seg)) {
+            for(j in seq_along(seg[[i]]$variations)) {
+                variation.names <- names(seg[[i]]$variations)
+                df <- rbind(df, 
+                            data.frame(segment=segment.names[i], 
+                                       variation=variation.names[j],
+                                       cr=seg[[i]]$variations[[j]]$results$conversionrate))
+            }
+        }
+        n1 <- nPlot(cr ~ segment, group = "variation", data = df, type = "multiBarChart")
+        return(n1)
+    })
+    
+    output$shownBox <- renderInfoBox({
+        infoBox(
+            "Progress", paste0(25 + input$count, "%"), icon = icon("list"),
+            color = "purple"
+        )
+    })
+    
+    output$conversionsBox <- renderInfoBox({
+        infoBox(
+            "Progress", paste0(25 + input$count, "%"), icon = icon("list"),
+            color = "purple"
+        )
+    })
+    
+    output$crBox <- renderInfoBox({
+        infoBox(
+            "Progress", paste0(25 + input$count, "%"), icon = icon("list"),
+            color = "purple"
+        )
     })
     
 })

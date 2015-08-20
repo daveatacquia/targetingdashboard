@@ -4,27 +4,29 @@ dashboardPage(
     dashboardHeader(title = "Lift Targeting"),
     dashboardSidebar(
         sidebarMenu(
-            menuItem("Dashboard", tabName = "dashboard", icon = icon("dashboard")),
-            menuItem("Widgets", tabName = "widgets", icon = icon("th"))
+            menuItem("Personalizations", tabName = "personalizations", icon = icon("dashboard")),
+            menuItem("Config", tabName = "config", icon = icon("th"))
         )
     ),
     dashboardBody(
         tabItems(
             # First tab content
-            tabItem(tabName = "dashboard",
+            tabItem(tabName = "personalizations",
+                dashboardBody(
                     fluidRow(
-                        box(plotOutput("plot1", height = 250)),
-                        
-                        box(
-                            title = "Controls",
-                            sliderInput("slider", "Number of observations:", 1, 100, 50)
-                        )
+                        infoBoxOutput("shownBox"),
+                        infoBoxOutput("conversionsBox"),
+                        infoBoxOutput("crBox")
+                    ),
+                    fluidRow(
+                        showOutput("segmentChart", "nvd3")
                     )
+                )
             ),
             
             # Second tab content
-            tabItem(tabName = "widgets",
-                    h2("Widgets tab content")
+            tabItem(tabName = "testing",
+                    h2("Testing Report")
             )
         )
     )
