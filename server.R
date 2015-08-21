@@ -8,6 +8,7 @@
 library(shinydashboard)
 library(jsonlite)
 library(rCharts)
+library(curl)
 
 shinyServer(function(input, output) {
     
