@@ -36,7 +36,7 @@ shinyServer(function(input, output) {
     })
     
     # Fill in the spot we created for a plot
-    output$segmentPlot <- renderChart({
+    output$segmentPlot <- renderChart2({
         
         # Render a barplot
         n1 <- nPlot(cr ~ segment, group = "variation", data = df, type = "multiBarChart")

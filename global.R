@@ -1,7 +1,13 @@
 library(jsonlite)
+library(RCurl)
 
+# grab the data
+raw_data <- getURL("http://52.20.161.146:8000/reports/homepage-banner/targeting?account_name=KATBAI2&site_name=Drupal")
 
-data <- fromJSON("./data/example.json")
+# Then covert from JSON into a list in R
+data <- fromJSON(raw_data)
+
+#data <- fromJSON("./data/example.json")
 
 ## Totals for Boxes
 total.shown <- data$totals$shown
