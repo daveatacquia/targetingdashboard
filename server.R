@@ -43,46 +43,5 @@ shinyServer(function(input, output) {
         return(n1)
     })
     
-    output$segmentTable <- renderUI({
-        # Create a Bootstrap-styled table
-        tags$table(class = "table",
-                   tags$thead(tags$tr(
-                       tags$th("Segment"),
-                       tags$th("Variation"),
-                       tags$th("Conversion Rate")
-                   )),
-                   tags$tbody(
-                       tags$tr(
-                           tags$td(df[1,1]),
-                           tags$td(df[1,2]),
-                           tags$td(df[1,3])
-                       ),
-                       tags$tr(
-                           tags$td(df[2,1]),
-                           tags$td(df[2,2]),
-                           tags$td(df[2,3])
-                       ),
-                       tags$tr(
-                           tags$td(df[3,1]),
-                           tags$td(df[3,2]),
-                           tags$td(df[3,3])
-                       ),
-                       tags$tr(
-                           tags$td(df[4,1]),
-                           tags$td(df[4,2]),
-                           tags$td(df[4,3])
-                       ),
-                       tags$tr(
-                           tags$td(df[5,1]),
-                           tags$td(df[5,2]),
-                           tags$td(df[5,3])
-                       ),
-                       tags$tr(
-                           tags$td(df[6,1]),
-                           tags$td(df[6,2]),
-                           tags$td(df[6,3])
-                       )
-                   )
-        )
-    })
+    output$table <- renderDataTable(df) 
 })
