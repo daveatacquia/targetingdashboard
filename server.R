@@ -64,51 +64,10 @@ shinyServer(function(input, output) {
     # Fill in the spot we created for a plot
     output$segmentPlot <- renderChart2({
         df <- df()
+        # Render a barplot
         n1 <- nPlot(cr ~ segment, group = "variation", data = df, type = "multiBarChart")
         return(n1)
     })
     
-    output$segmentTable <- renderUI({
-        # Create a Bootstrap-styled table
-        df <- df()
-        tags$table(class = "table",
-                   tags$thead(tags$tr(
-                       tags$th("Segment"),
-                       tags$th("Variation"),
-                       tags$th("Conversion Rate")
-                   )),
-                   tags$tbody(
-                       tags$tr(
-                           tags$td(df[1,1]),
-                           tags$td(df[1,2]),
-                           tags$td(df[1,3])
-                       ),
-                       tags$tr(
-                           tags$td(df[2,1]),
-                           tags$td(df[2,2]),
-                           tags$td(df[2,3])
-                       ),
-                       tags$tr(
-                           tags$td(df[3,1]),
-                           tags$td(df[3,2]),
-                           tags$td(df[3,3])
-                       ),
-                       tags$tr(
-                           tags$td(df[4,1]),
-                           tags$td(df[4,2]),
-                           tags$td(df[4,3])
-                       ),
-                       tags$tr(
-                           tags$td(df[5,1]),
-                           tags$td(df[5,2]),
-                           tags$td(df[5,3])
-                       ),
-                       tags$tr(
-                           tags$td(df[6,1]),
-                           tags$td(df[6,2]),
-                           tags$td(df[6,3])
-                       )
-                   )
-        )
-    })
+    output$table <- renderDataTable(df) 
 })

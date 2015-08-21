@@ -26,7 +26,7 @@ dashboardPage(
                         box(
                             width = 12, status = "info", solidHeader = TRUE,
                             title = "Segment Data",
-                            uiOutput("segmentTable")
+                            dataTableOutput("table")
                         )
                     )
                 ),
