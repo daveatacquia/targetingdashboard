@@ -1,7 +1,6 @@
 library(jsonlite)
 library(rCharts)
 
-data <- fromJSON("./data/example.json")
 
 ## Totals for Boxes
 total.shown <- data$totals$shown

@@ -1,33 +1,42 @@
 library(shinydashboard)
+require(rCharts)
 
 dashboardPage(
-    dashboardHeader(title = "Lift Targeting"),
+    dashboardHeader(title = "Lift Dashboard"),
     dashboardSidebar(
         sidebarMenu(
-            menuItem("Personalizations", tabName = "personalizations", icon = icon("dashboard")),
-            menuItem("Config", tabName = "config", icon = icon("th"))
+           menuItem("Targeting", tabName = "targeting"),
+            menuItem("Testing", tabName = "testing"),
+            selectInput("perSelect", "Personalization:", choices = c('Banner A1'='1','Banner B2'='2'))
         )
     ),
     dashboardBody(
         tabItems(
-            # First tab content
-            tabItem(tabName = "personalizations",
-                dashboardBody(
+           # Targeting tab content
+            tabItem(tabName = "targeting",
                     fluidRow(
-                        infoBoxOutput("shownBox"),
-                        infoBoxOutput("conversionsBox"),
-                        infoBoxOutput("crBox")
+                        valueBoxOutput("shown"),
+                        valueBoxOutput("conversions"),
+                        valueBoxOutput("conversionrate")
                     ),
                     fluidRow(
-                        showOutput("segmentChart", "nvd3")
+                        showOutput("segmentPlot", "nvd3")
+                    ),
+                    fluidRow(
+                        box(
+                            width = 12, status = "info", solidHeader = TRUE,
+                            title = "Segment Data",
+                            uiOutput("segmentTable")
+                        )
                     )
-                )
-            ),
+                ),
             
-            # Second tab content
-            tabItem(tabName = "testing",
-                    h2("Testing Report")
+               # Testing tab content
+                tabItem(tabName = "testing",
+                        fluidRow(
+                        )
+                )
             )
         )
-    )
 )
+
