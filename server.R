@@ -69,5 +69,8 @@ shinyServer(function(input, output) {
         return(n1)
     })
     
-    output$table <- renderDataTable(df) 
+    output$table <- renderDataTable({
+        df <- df()
+        df
+    }) 
 })
